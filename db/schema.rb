@@ -16,13 +16,15 @@ ActiveRecord::Schema.define(version: 20161121160231) do
   enable_extension "plpgsql"
 
   create_table "offers", force: :cascade do |t|
-    t.string   "email"
-    t.string   "distance"
-    t.string   "attic"
-    t.string   "celler"
-    t.boolean  "has_piano"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.string   "email",                        null: false
+    t.decimal  "distance",                     null: false
+    t.decimal  "living_space", default: "0.0"
+    t.decimal  "attic",        default: "0.0"
+    t.decimal  "celler",       default: "0.0"
+    t.boolean  "has_piano",    default: false
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
+    t.index ["email"], name: "index_offers_on_email", using: :btree
   end
 
 end

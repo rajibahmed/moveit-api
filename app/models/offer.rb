@@ -1,31 +1,48 @@
 class Offer < ApplicationRecord
 	validates :email, presence: true
 	validates :distance, presence: true, numericality: true
+	validates :living_space, numericality: true
 	validates :attic, numericality: true
 	validates :celler, numericality: true
-	validates :has_paino, inclusion: { in: [true, false]}
 
 	def calculate
-		distance_price + celler_price + attic_price + piano_price
+		distance_price + volume_price + piano_price
 	end
 
-	def rules
+	def volume_price
+		1100 * number_of_cars_need
 	end
 
+
+	private 
 	def piano_price
-		5000
+		has_piano? ? 5000 : 0
 	end
 
 	def distance_price
-	 1000	
+		if distance < 50
+			(distance * 10) + 1000
+		elsif distance > 49 && distance < 100
+			(distance * 8) + 5000
+		elsif distance > 99
+			(distance * 7 ) + 10000
+		end
 	end
 
-	def celler_price
-		celler && 2 * celler
+
+	def number_of_cars_need
+		(volume/50.to_f).ceil
 	end
 
-	def attic_price
-		2 * ( attic || 0)
+	def volume
+		living_space + celler_volume + attic_volume
 	end
 
+	def celler_volume
+		2 * celler
+	end
+
+	def attic_volume
+		2 * attic
+	end
 end
