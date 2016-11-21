@@ -12,34 +12,37 @@ RSpec.describe Offer, type: :model do
 
 	context '#calculate' do
 		it 'adds all prices' do
-			offer = build(:offer)
+			offer = Offer.new(distance: 10, living_space: 49, has_piano: true)
 
-			expect(offer.calculate).to eq(5000)
+			expect(offer.calculate).to eq(7200)
 		end
 
 		it 'price for no piano' do
-			offer = build(:offer,  has_piano: false )
+			offer = Offer.new(distance: 10, living_space: 49)
 
-			expect(offer.calculate).to eq(1000)
+			expect(offer.calculate).to eq(2200)
 		end
 
 		it 'price for only distance' do
-			offer = build(:offer, living_space: 0, attic: 0, celler: 0, has_piano: false )
-			expect(offer.calculate).to eq(10700)
+			offer = Offer.new(distance: 100)
+			expect(offer.distance_price).to eq(10700)
 
 			offer.distance = 99
-			expect(offer.calculate).to eq(5792)
+			expect(offer.distance_price).to eq(5792)
 			
 			offer.distance = 51
-			expect(offer.calculate).to eq(5408)
+			expect(offer.distance_price).to eq(5408)
 
 			offer.distance = 49
-			expect(offer.calculate).to eq(1490)
+			expect(offer.distance_price).to eq(1490)
 			
 			offer.distance = 10
-			expect(offer.calculate).to eq(1100)
+			expect(offer.distance_price).to eq(1100)
 		end
 
+	end
+
+	context '#volume_price' do
 		it 'price for only living_space' do
 			offer = build(:offer, living_space: 49)
 			expect(offer.volume_price).to eq(1100)
@@ -54,10 +57,7 @@ RSpec.describe Offer, type: :model do
 			expect(offer.volume_price).to eq(3300)
 
 			offer = build(:offer, living_space: 150)
-			expect(offer.volume_price).to eq(3300)
+			expect(offer.volume_price).to eq(4400)
 		end
-		
-		it 'price for only distance, living space, celler'
-			
 	end
 end

@@ -9,16 +9,6 @@ class Offer < ApplicationRecord
 		distance_price + volume_price + piano_price
 	end
 
-	def volume_price
-		1100 * number_of_cars_need
-	end
-
-
-	private 
-	def piano_price
-		has_piano? ? 5000 : 0
-	end
-
 	def distance_price
 		if distance < 50
 			(distance * 10) + 1000
@@ -29,13 +19,23 @@ class Offer < ApplicationRecord
 		end
 	end
 
-
-	def number_of_cars_need
-		(volume/50.to_f).ceil
+	def volume_price
+		1100 * number_of_cars_need
 	end
+
+	private ###########
+
+	def piano_price
+		has_piano? ? 5000 : 0
+	end
+
 
 	def volume
 		living_space + celler_volume + attic_volume
+	end
+
+	def number_of_cars_need
+		((volume/50.to_f) + 1).floor
 	end
 
 	def celler_volume
