@@ -12,7 +12,7 @@ class OffersController < ApplicationController
     if offer.save
       render json: app, status: :created
     else
-      render json: Errors.for(:validation_failed, model: offer), status: 422
+      render json: Errors.for(:validation_failed, model: offer), status: :unprocessable_entity
     end
   end
 

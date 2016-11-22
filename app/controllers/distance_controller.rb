@@ -5,13 +5,13 @@ class DistanceController < ApplicationController
 		response = distance.for_car
 
 		if response['status'] == 'OK'
-			render json: response, status: 422
+			render json: response, status: :unprocessable_entity
 		else
 			render json: Errors.for(:not_found, distance)
 		end
 
 	rescue Exception
-		render json: Errors.for(:error)
+		render json: Errors.for(:error), status: :service_unavailable
 	end
 
 	private #####
