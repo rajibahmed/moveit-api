@@ -1,4 +1,14 @@
 class Offer < ApplicationRecord
+	
+	DISTANCE_FIRST_BASE		= 1000
+	DISTANCE_FIRST_PER_KM = 10
+	DISTANCE_SECOND_BASE	= 5000
+	DISTANCE_SECOND_PER_KM = 8
+	DISTANCE_THIRD_BASE		= 10000
+	DISTANCE_THIRD_PER_KM	= 7
+	PIANO_SHIPPING_PRICE	= 5000
+	VOLUME_PRICE_PER_CAR	= 1100
+
 	validates :email, presence: true
 	validates :distance, presence: true, numericality: true
 	validates :living_space, numericality: true
@@ -11,30 +21,29 @@ class Offer < ApplicationRecord
 
 	def distance_price
 		if distance < 50
-			(distance * 10) + 1000
+			(distance * DISTANCE_FIRST_PER_KM) + DISTANCE_FIRST_BASE
 		elsif distance > 49 && distance < 100
-			(distance * 8) + 5000
+			(distance * DISTANCE_SECOND_PER_KM) + DISTANCE_SECOND_BASE
 		elsif distance > 99
-			(distance * 7 ) + 10000
+			(distance * DISTANCE_THIRD_PER_KM ) + DISTANCE_THIRD_BASE
 		end
 	end
 
 	def volume_price
-		1100 * number_of_cars_need
+		VOLUME_PRICE_PER_CAR * number_of_cars
 	end
 
 	private ###########
 
 	def piano_price
-		has_piano? ? 5000 : 0
+		has_piano? ? PIANO_SHIPPING_PRICE : 0
 	end
-
 
 	def volume
 		living_space + celler_volume + attic_volume
 	end
 
-	def number_of_cars_need
+	def number_of_cars
 		((volume/50.to_f) + 1).floor
 	end
 
