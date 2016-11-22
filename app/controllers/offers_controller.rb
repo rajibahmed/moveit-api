@@ -7,10 +7,10 @@ class OffersController < ApplicationController
   end
 
   def create
-    offer = Offer.build(offer_params)
+    offer = Offer.new(offer_params)
 
     if offer.save
-      render json: app, status: :created
+			render json: offer, status: :created
     else
       render json: Errors.for(:validation_failed, model: offer), status: :unprocessable_entity
     end
@@ -23,6 +23,6 @@ class OffersController < ApplicationController
   end
 
  def offer_params
-	 params.require(:email, :distance).permit(:celler, :attic, :living_space)
+	 params.require(:offer).permit(:email, :distance, :celler, :attic, :living_space)
   end
 end

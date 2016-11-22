@@ -33,6 +33,10 @@ class Offer < ApplicationRecord
 		VOLUME_PRICE_PER_CAR * number_of_cars
 	end
 
+	def as_json(options)
+		super.merge({ price: calculate })
+	end
+
 	private ###########
 
 	def piano_price
