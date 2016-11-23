@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161121160231) do
+ActiveRecord::Schema.define(version: 20161123111721) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -24,6 +24,8 @@ ActiveRecord::Schema.define(version: 20161121160231) do
     t.boolean  "has_piano",    default: false
     t.datetime "created_at",                   null: false
     t.datetime "updated_at",                   null: false
+    t.string   "origin"
+    t.string   "destination"
     t.index ["email"], name: "index_offers_on_email", using: :btree
   end
 

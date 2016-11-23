@@ -10,6 +10,8 @@ class Offer < ApplicationRecord
 	VOLUME_PRICE_PER_CAR	= 1100
 
 	validates :email, presence: true
+	validates :origin, presence: true
+	validates :destination, presence: true
 	validates :distance, presence: true, numericality: true
 	validates :living_space, numericality: true
 	validates :attic, numericality: true

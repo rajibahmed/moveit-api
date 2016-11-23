@@ -3,6 +3,8 @@ require 'rails_helper'
 RSpec.describe Offer, type: :model do
   context 'validations' do
 		it { should validate_presence_of(:email) }
+		it { should validate_presence_of(:origin) }
+		it { should validate_presence_of(:destination) }
 		it { should validate_presence_of(:distance) }
 		it { should validate_numericality_of(:distance) }
 		it { should validate_numericality_of(:living_space) }
