@@ -5,9 +5,9 @@ class DistanceController < ApplicationController
 		response = distance.for_car
 
 		if response['status'] == 'OK'
-			render json: response, status: :unprocessable_entity
+			render json: response
 		else
-			render json: Errors.for(:not_found, distance)
+			render json: Errors.for(:not_found, distance) , status: :unprocessable_entity
 		end
 
 	rescue Exception
