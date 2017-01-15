@@ -15,6 +15,6 @@ class Distance
   private
 
   def url
-    URL % [ origin, destination ]
+    URL % [ URI.escape(origin), URI.escape(destination) ]
   end
 end
