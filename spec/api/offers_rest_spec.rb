@@ -19,24 +19,24 @@ describe 'api for offers ' do
     end
   end
 
-	context 'POST /offers' do
-		it 'creates an offer with valid params' do
-			post offers_path, params: {offer: attributes_for(:offer)}
+  context 'POST /offers' do
+    it 'creates an offer with valid params' do
+      post offers_path, params: {offer: attributes_for(:offer)}
 
-			expect(response).to be_created
-			expect(response_json[:email]).to eq('example@email.com')
-		end
+      expect(response).to be_created
+      expect(response_json[:email]).to eq('example@email.com')
+    end
 
-		it 'error creating offer with invalid params' do
-			post offers_path, params: { offer: { distance: 0 }}
+    it 'error creating offer with invalid params' do
+      post offers_path, params: { offer: { distance: 0 }}
 
-			expect(response.status).to eq(422)
-			expect(response_json).to have_key(:errors)
-		end
-	end
+      expect(response.status).to eq(422)
+      expect(response_json).to have_key(:errors)
+    end
+  end
 
 
-	def response_json
-		JSON.parse(response.body, symbolize_names: true)
-	end
+  def response_json
+    JSON.parse(response.body, symbolize_names: true)
+  end
 end

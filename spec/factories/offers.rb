@@ -6,5 +6,7 @@ FactoryGirl.define do
     attic 0
     celler 0
     has_piano true
+		origin 't central'
+		destination 'gamla stan'
   end
 end
